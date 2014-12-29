@@ -25,6 +25,8 @@ class netxms::agent (
 	file { '/etc/nxagentd.conf':
 		require	=> Package['netxms-agent'],
 		content	=> template('netxms/nxagentd.conf.erb'),
+		owner	=> 'root',
+		group	=> 'root',
 		mode	=> '0644',
 		notify	=> Service['nxagentd'],
 	}

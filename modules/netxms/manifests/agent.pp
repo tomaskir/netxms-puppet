@@ -1,4 +1,5 @@
 class netxms::agent (
+	$ensure = 'installed',
 	$nxagentd_masters,
 	$nxagentd_access_pwd,
 	$nxagentd_logfile = '/var/log/nxagentd.log',
@@ -9,7 +10,7 @@ class netxms::agent (
 	# install packages
 	package { 'netxms-agent':
 		require			=> Class['apt::netxms_repo'],
-		ensure			=> installed,
+		ensure			=> $ensure,
 		install_options	=> '--force-yes',
 	}
 	

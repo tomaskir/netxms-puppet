@@ -31,10 +31,12 @@ class netxms::server (
 		}
 	}
 	
-	# config files
+	# config file
 	file { '/etc/netxmsd.conf':
 		require	=> Package["netxms-server"],
 		content	=> template('netxms/netxmsd.conf.erb'),
+		owner	=> 'root',
+		group	=> 'root',
 		mode	=> '0644',
 		notify	=> Service['netxmsd'],
 	}

@@ -1,4 +1,5 @@
 class netxms::server (
+	$ensure = 'installed',
 	$netxmsd_db_drv,
 	$netxmsd_db_srv,
 	$netxmsd_db_name,
@@ -16,7 +17,7 @@ class netxms::server (
 	# install packages
 	package { 'netxms-server':
 		require			=> Class['netxms::agent'],
-		ensure			=> installed,
+		ensure			=> $ensure,
 		install_options	=> '--force-yes',
 	}
 	
@@ -24,7 +25,7 @@ class netxms::server (
 	if ($netxmsd_db_drv != 'sqlite') {
 		package { "netxms-server-${netxmsd_db_drv}":
 			require			=> Package['netxms-server'],
-			ensure			=> installed,
+			ensure			=> $ensure,
 			install_options	=> '--force-yes',
 			notify			=> Service['netxmsd'],
 		}

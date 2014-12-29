@@ -5,11 +5,18 @@ class netxms::agent (
 	$nxagentd_logfile = '/var/log/nxagentd.log',
 	$nxagentd_proxy_agent = 'no',
 	$nxagentd_proxy_snmp = 'no',
+	$repo_class = 'apt::netxms_repo',
 )
 {
 	# install packages
+	package { 'netxms-base':
+		require			=> Class["$repo_class"],
+		ensure			=> $ensure,
+		install_options	=> '--force-yes',
+	}
+	
 	package { 'netxms-agent':
-		require			=> Class['apt::netxms_repo'],
+		require			=> Package['netxms-base'],
 		ensure			=> $ensure,
 		install_options	=> '--force-yes',
 	}

@@ -1,0 +1,51 @@
+# 
+# This file is managed by Puppet, manual modifications will be over-written!
+# 
+
+#
+# Configuration file for NetXMS server
+#
+
+#
+# DBDriver
+#
+# Database driver to use
+DBDriver = <%= @netxmsd_db_drv %>.ddr
+
+#
+# DBServer
+#
+# Database server (ODBC source name for ODBC driver)
+DBServer = <%= @netxmsd_db_srv %>
+
+#
+# DBName
+#
+# Database name (not used by ODBC driver)
+DBName = <%= @netxmsd_db_name %>
+
+#
+# DBLogin
+#
+# Database user name
+DBLogin = <%= @netxmsd_db_login %>
+
+#
+# DBPassword
+#
+# Database user's password
+DBPassword = <%= @netxmsd_db_pwd %>
+
+#
+# LogFailedSQLQueries
+#
+# Controls logging of failed SQL queries.
+# Possible values: "yes" (default) or "no".
+LogFailedSQLQueries = <%= @netxmsd_log_failed_sql %>
+
+#
+# LogFile
+#
+# Server's log file. To write log to syslog (or Event Log on Windows),
+# use {syslog} as file name.
+LogFile = <%= @netxmsd_logfile %>

@@ -1,0 +1,6 @@
+# 
+# This file is managed by Puppet, manual modifications will be over-written!
+# 
+
+# NetXMS Aptitude Repositories
+deb http://www.netxms.org/apt wheezy main

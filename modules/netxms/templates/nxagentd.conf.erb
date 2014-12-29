@@ -1,0 +1,33 @@
+# 
+# This file is managed by Puppet, manual modifications will be over-written!
+# 
+
+#
+# Configuration file for NetXMS agent
+#
+
+# Comma separated list of server
+MasterServers = <%= @nxagentd_masters %>
+
+# path for the logging file
+LogFile = <%= @nxagentd_logfile %>
+
+# Require for servers to authenticate?
+RequireAuthentication = yes
+
+# Require encrypted communication with remote server?
+RequireEncryption = no
+
+# Shared secret with the remote server
+SharedSecret = <%= @nxagentd_access_pwd %>
+
+# Directory for storing files uploaded by installation server(s)
+FileStore = /var/nxagentd
+
+# Enable agent proxying
+EnableProxy = <%= @nxagentd_proxy_agent %>
+
+# Enable SNMP proxying
+EnableSNMPProxy = <%= @nxagentd_proxy_snmp %>
+
+# Subagents to load - you can use multiple SubAgent parameters

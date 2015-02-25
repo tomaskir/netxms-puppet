@@ -1,6 +1,9 @@
-class apt::netxms_repo {
+class apt::netxms_repo (
+	$release = 'main',
+)
+{
 	file { '/etc/apt/sources.list.d/netxms.list':
-		source	=> 'puppet:///modules/apt/netxms.list',
+		content	=> template('apt/netxms.list.erb'),
 		owner	=> 'root',
 		group	=> 'root',
 		mode	=> '0644',

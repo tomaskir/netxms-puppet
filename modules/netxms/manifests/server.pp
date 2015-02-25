@@ -11,7 +11,7 @@ class netxms::server (
 {
 	# check if $netxmsd_db_drv specified correctly
 	if ($netxmsd_db_drv != 'mysql' and $netxmsd_db_drv != 'odbc' and $netxmsd_db_drv != 'oracle' and $netxmsd_db_drv != 'pgsql' and $netxmsd_db_drv != 'sqlite') {
-		fail('Error: $netxmsd_db_drv invalid. Supported options: [\'mysql\', \'odbc\', \'oracle\', \'pgsql\', \'sqlite\']')
+		fail('Error: $netxmsd_db_drv invalid! Supported options: [\'mysql\', \'odbc\', \'oracle\', \'pgsql\', \'sqlite\']')
 	}
 
 	# install packages

@@ -55,7 +55,7 @@ node 'netxms.server.local' {
 Both modules should be places in your .../modules/ directory.
 
 ##### Dependency chain
-Class['apt::netxms_repo'] -> 'Class[netxms::agent'] -> Class['netxms::server']
+Class['apt::netxms_repo'] -> Class['netxms::agent'] -> Class['netxms::server']
 
 ##### Class attributes:
 ```puppet

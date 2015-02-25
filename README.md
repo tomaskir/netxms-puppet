@@ -8,7 +8,9 @@ If you want to install just the Agent on a node:
 ```puppet
 node 'foo.bar.local' {
   # add netxms apt sources
-  class { 'apt::netxms_repo': }
+  class { 'apt::netxms_repo':
+    release => 'beta',
+  }
 
   # install netxms agent
   class { 'netxms::agent':
@@ -21,7 +23,9 @@ If you want to install both Agent and Server on a node:
 ```puppet
 node 'netxms.server.local' {
   # add netxms apt sources
-  class { 'apt::netxms_repo': }
+  class { 'apt::netxms_repo':
+    release => 'beta',
+  }
 
   # install netxms agent
   class { 'netxms::agent':
@@ -44,6 +48,13 @@ node 'netxms.server.local' {
 ##### Modules
 1) 'apt' module - 'apt::netxms_repo' class<br>
 ----This class adds the NetXMS Aptitude repo into /etc/apt/sources.list.d/netxms.list
+
+##### Class attributes:
+```puppet
+class { 'apt::netxms_repo':
+  release => 'beta',  # optional - defaults to 'main' - chooses which netxms apt repo to use
+}
+```
 
 2) 'netxms' module - 'netxms::agent' and 'netxms::server' classes<br>
 ----These classes actually install and configure NetXMS components
@@ -86,6 +97,10 @@ class { 'netxms::server':
 
 2) Please note that deploying NetXMS Server using Puppet doesnt initialize the DB.<br>
 ----You still have to manually run "nxdbmng init".<br>
+
+3) Currently I highly recommend using the 'beta' NetXMS releases.
+----This can be set in the 'apt::netxms_repo' class.
+----The beta NetXMS releases are very stable, and contain fixes for multiple issues.
 
 #### Final words:
 If you find any issues with this module, or have any feedback, please let me know!

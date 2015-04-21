@@ -7,7 +7,13 @@ class apt::netxms_repo (
 		owner	=> 'root',
 		group	=> 'root',
 		mode	=> '0644',
-		notify	=> Exec['netxms - apt-get update']
+		notify	=> Exec['netxms - add repo key']
+	}
+	
+	exec { 'netxms - add repo key':
+		refreshonly	=> true,
+		command		=> "/usr/bin/wget -q -O - http://packages.netxms.org/netxms.gpg | sudo apt-key add -",
+		notify		=> Exec['netxms - apt-get update']
 	}
 	
 	exec { 'netxms - apt-get update':

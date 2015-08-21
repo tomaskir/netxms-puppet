@@ -7,6 +7,9 @@ class netxms::server (
 	$netxmsd_db_pwd,
 	$netxmsd_log_failed_sql = 'yes',
 	$netxmsd_logfile = '/var/log/netxmsd.log',
+	$f_owner = 'root',
+	$f_group = 'root',
+	$f_mode = '0600',
 )
 {
 	# check if $netxmsd_db_drv specified correctly
@@ -35,9 +38,9 @@ class netxms::server (
 	file { '/etc/netxmsd.conf':
 		require	=> Package["netxms-server"],
 		content	=> template('netxms/netxmsd.conf.erb'),
-		owner	=> 'root',
-		group	=> 'root',
-		mode	=> '0644',
+		owner	=> $f_owner,
+		group	=> $f_group,
+		mode	=> $f_mode,
 		notify	=> Service['netxmsd'],
 	}
 	

@@ -2,5 +2,5 @@
 # This file is managed by Puppet, manual modifications will be over-written!
 # 
 
-# NetXMS Aptitude Repositories
-deb http://packages.netxms.org/debian/ wheezy <%= @release %>
+# NetXMS Aptitude Repository
+deb http://packages.netxms.org/<%= @os_name %> <%= @os_dist %> <%= @release %>

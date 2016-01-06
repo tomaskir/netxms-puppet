@@ -6,33 +6,28 @@ class netxms::server (
   $netxmsd_db_login,
   $netxmsd_db_pwd,
   $netxmsd_log_failed_sql = 'yes',
-  $netxmsd_logfile        = '/var/log/netxmsd.log',
+  $netxmsd_logfile        = '/var/log/netxmsd',
   $f_owner                = 'root',
   $f_group                = 'root',
   $f_mode                 = '0600',
 )
 {
   # check if $netxmsd_db_drv specified correctly
-  if ($netxmsd_db_drv != 'mysql' and $netxmsd_db_drv != 'odbc' and $netxmsd_db_drv != 'oracle' and $netxmsd_db_drv != 'pgsql' and
-  $netxmsd_db_drv != 'sqlite') {
-    fail('Error: $netxmsd_db_drv invalid! Supported options: [\'mysql\', \'odbc\', \'oracle\', \'pgsql\', \'sqlite\']')
+  if ($netxmsd_db_drv != 'mysql' and $netxmsd_db_drv != 'odbc' and $netxmsd_db_drv != 'oracle' and $netxmsd_db_drv != 'pgsql' and $netxmsd_db_drv != 'sqlite3') {
+    fail('Error: $netxmsd_db_drv invalid! Supported options: [\'mysql\', \'odbc\', \'oracle\', \'pgsql\', \'sqlite3\']')
   }
 
-  # install packages
-  package { 'netxms-server':
+  # install DB drivers
+  package { "netxms-dbdrv-${netxmsd_db_drv}":
     require         => Class['netxms::agent'],
     ensure          => $ensure,
-    install_options => '--force-yes',
+    notify          => Service['netxmsd'],
   }
 
-  # install additional DB drivers if required
-  if ($netxmsd_db_drv != 'sqlite') {
-    package { "netxms-dbdrv-${netxmsd_db_drv}":
-      require         => Package['netxms-server'],
-      ensure          => $ensure,
-      install_options => '--force-yes',
-      notify          => Service['netxmsd'],
-    }
+  # install server
+  package { 'netxms-server':
+    require         => Package["netxms-dbdrv-${netxmsd_db_drv}"],
+    ensure          => $ensure,
   }
 
   # config file
@@ -45,7 +40,7 @@ class netxms::server (
     notify  => Service['netxmsd'],
   }
 
-  # services
+  # service
   service { 'netxmsd':
     require => Service['nxagentd'],
     ensure  => 'running',

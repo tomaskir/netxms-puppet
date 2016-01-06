@@ -87,9 +87,9 @@ class { 'netxms::server':
   netxmsd_db_pwd         => 'netxms',               # required - db password
   netxmsd_log_failed_sql => 'yes',                  # optional, defaults to 'yes'
   netxmsd_logfile        => '/var/log/netxmsd',     # optional, defaults to '/var/log/netxmsd.log'
-  f_owner              => 'root',                   # optional - defaults to 'root' - set owner of the config file
-  f_group              => 'root',                   # optional - defaults to 'root' - set group of the config file
-  f_mode               => '0600',                   # optional - defaults to '0600' - set security of the config file
+  f_owner                => 'root',                 # optional - defaults to 'root' - set owner of the config file
+  f_group                => 'root',                 # optional - defaults to 'root' - set group of the config file
+  f_mode                 => '0600',                 # optional - defaults to '0600' - set security of the config file
 }
 ```
 

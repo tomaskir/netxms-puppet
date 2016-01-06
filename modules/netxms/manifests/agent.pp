@@ -13,7 +13,7 @@ class netxms::agent (
 {
   # install packages
   package { 'netxms-base':
-    require         => Class["$repo_class"],
+    require         => Class[$repo_class],
     ensure          => $ensure,
     install_options => '--force-yes',
   }

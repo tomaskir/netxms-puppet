@@ -12,12 +12,12 @@ class apt::netxms_repo (
 
   exec { 'netxms - add repo key':
     refreshonly => true,
-    command     => "/usr/bin/wget -q -O - http://packages.netxms.org/netxms.gpg | sudo apt-key add -",
+    command     => '/usr/bin/wget -q -O - http://packages.netxms.org/netxms.gpg | sudo apt-key add -',
     notify      => Exec['netxms - apt-get update']
   }
 
   exec { 'netxms - apt-get update':
     refreshonly => true,
-    command     => "/usr/bin/apt-get update",
+    command     => '/usr/bin/apt-get update',
   }
 }

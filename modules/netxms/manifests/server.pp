@@ -37,7 +37,7 @@ class netxms::server (
 
   # config file
   file { '/etc/netxmsd.conf':
-    require => Package["netxms-server"],
+    require => Package['netxms-server'],
     content => template('netxms/netxmsd.conf.erb'),
     owner   => $f_owner,
     group   => $f_group,

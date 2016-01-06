@@ -1,15 +1,14 @@
 netxms-puppet
 =============
 This is a Puppet module for NetXMS.<br>
-Please note this module is still fairly basic, and was tested only on Ubuntu Server 12.04.
+Please note this module was tested only on Ubuntu Server 14.04.
 
 #### TL;DR documentation
 If you want to install just the Agent on a node:
 ```puppet
 node 'foo.bar.local' {
-  # add netxms apt sources
+  # add netxms apt repo
   class { 'apt::netxms_repo':
-    release => 'beta',
   }
 
   # install netxms agent
@@ -24,7 +23,6 @@ If you want to install both Agent and Server on a node:
 node 'netxms.server.local' {
   # add netxms apt sources
   class { 'apt::netxms_repo':
-    release => 'beta',
   }
 
   # install netxms agent
@@ -68,9 +66,14 @@ class { 'netxms::agent':
   ensure               => 'installed',              # optional - defaults to 'installed'
   nxagentd_masters     => 'netxms.server.local',    # required - list of masters, if installed on server, dont forget '127.0.0.1, netxms.server.local'
   nxagentd_access_pwd  => 'nxagentSharedSecret',    # required - agent access secret
-  nxagentd_logfile     => '/var/log/nxagentd.log',  # optional - defaults to '/var/log/nxagentd.log'
+  nxagentd_logfile     => '/var/log/nxagentd',      # optional - defaults to '/var/log/nxagentd.log'
   nxagentd_proxy_agent => 'no',                     # optional - defaults to 'no'
   nxagentd_proxy_snmp  => 'no',                     # optional - defaults to 'no'
+  nxagentd_file_store  => '/var/nxagentd',          # optional - defaults to '/var/nxagentd' - this is the location of the nxagentd FileStore
+  f_owner              => 'root',                   # optional - defaults to 'root' - set owner of the config file and FileStore
+  f_group              => 'root',                   # optional - defaults to 'root' - set group of the config file and FileStore
+  f_mode               => '0600',                   # optional - defaults to '0600' - set security of the config file
+  d_mode               => '0700',                   # optional - defaults to '0700' - set security of the FileStore
   repo_class           => 'apt::netxms_repo',       # optional - defaults to 'apt::netxms_repo' - can be used to set which class defines the repo for netxms packages
 }
 ```
@@ -83,22 +86,16 @@ class { 'netxms::server':
   netxmsd_db_login       => 'netxms',               # required - db login
   netxmsd_db_pwd         => 'netxms',               # required - db password
   netxmsd_log_failed_sql => 'yes',                  # optional, defaults to 'yes'
-  netxmsd_logfile        => '/var/log/netxmsd.log', # optional, defaults to '/var/log/netxmsd.log'
+  netxmsd_logfile        => '/var/log/netxmsd',     # optional, defaults to '/var/log/netxmsd.log'
+  f_owner              => 'root',                   # optional - defaults to 'root' - set owner of the config file
+  f_group              => 'root',                   # optional - defaults to 'root' - set group of the config file
+  f_mode               => '0600',                   # optional - defaults to '0600' - set security of the config file
 }
 ```
 
 ##### Notes:
-1) Please note that the init script of nxagentd as of version 1.2.17 doesnt support a "status" call.<br>
-----In effect, this mean that Puppet will restart the nxagentd service on each run.<br>
-----This has been fixed in 2.0-M1.<br>
-----For a patch for older versions, see: https://www.radensolutions.com/chiliproject/issues/673<br>
-
-2) Please note that deploying NetXMS Server using Puppet doesnt initialize the DB.<br>
+1) Please note that deploying NetXMS Server using Puppet doesnt initialize the DB.<br>
 ----You still have to manually run "nxdbmng init".<br>
-
-3) Currently I highly recommend using the 'beta' NetXMS releases.<br>
-----This can be set in the 'apt::netxms_repo' class.<br>
-----The beta NetXMS releases are very stable, and contain fixes for multiple issues.
 
 #### Final words:
 If you find any issues with this module, or have any feedback, please let me know!

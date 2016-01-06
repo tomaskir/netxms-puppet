@@ -1,31 +1,38 @@
-# 
+#
 # This file is managed by Puppet, manual modifications will be over-written!
-# 
+#
 
 # Configuration file for NetXMS agent
 
-# Comma separated list of server
+# Basic settings
+ListenAddress = *
+ListenPort = 4700
+
+# Server comma separated list
 MasterServers = <%= @nxagentd_masters %>
 
-# path for the logging file
-LogFile = <%= @nxagentd_logfile %>
+# Specify if watchdog should be used
+EnableWatchdog = no
 
-# Require for servers to authenticate?
+# Connection security settings
 RequireAuthentication = yes
-
-# Require encrypted communication with remote server?
 RequireEncryption = no
-
-# Shared secret with the remote server
 SharedSecret = <%= @nxagentd_access_pwd %>
 
-# Directory for storing files uploaded by installation server(s)
-FileStore = /var/nxagentd
-
-# Enable agent proxying
+# Proxying related settings
 EnableProxy = <%= @nxagentd_proxy_agent %>
-
-# Enable SNMP proxying
 EnableSNMPProxy = <%= @nxagentd_proxy_snmp %>
+EnableSNMPTrapProxy = <%= @nxagentd_proxy_snmp %>
 
-# Subagents to load - you can use multiple SubAgent parameters
+# Log file location
+LogFile = <%= @nxagentd_logfile %>
+
+# Directory for storing files uploaded by server(s)
+FileStore = <%= @nxagentd_file_store %>
+
+# Subagents to load
+SubAgent = filemgr.nsm
+SubAgent = portcheck.nsm
+
+[filemgr]
+RootFolder = /var/log

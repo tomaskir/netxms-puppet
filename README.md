@@ -80,7 +80,7 @@ class { 'netxms::agent':
 ```puppet
 class { 'netxms::server':
   ensure                 => 'installed',            # optional - defaults to 'installed'
-  netxmsd_db_drv         => 'mysql',                # required - one of ['mysql', 'odbc', 'oracle', 'pgsql', 'sqlite']
+  netxmsd_db_drv         => 'mysql',                # required - one of ['mysql', 'odbc', 'oracle', 'pgsql', 'sqlite3']
   netxmsd_db_srv         => 'mysql.server.local',   # required - db server ip/fqdn
   netxmsd_db_name        => 'netxms_db',            # required - db name
   netxmsd_db_login       => 'netxms',               # required - db login
